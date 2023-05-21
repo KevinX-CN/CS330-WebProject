@@ -1,0 +1,2 @@
+打开untitled2.ipynb，往“text = ”后输入要提取的文档，注意不要换行。
+运行untitled2.ipynb即可。
