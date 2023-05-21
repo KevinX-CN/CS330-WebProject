@@ -1,5 +1,11 @@
 package com.example.project.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -86,5 +92,14 @@ public class Picture {
 
   public String getFileName() {
     return "posters/" + this.id + "." + this.type;
+  }
+
+  public String getFile() throws IOException {
+    InputStream fileInput = Files.newInputStream(Paths.get(this.getFileName()));
+    byte[] data = new byte[fileInput.available()];
+    fileInput.read(data);
+    fileInput.close();
+    Encoder base64Encoder = Base64.getEncoder();
+    return base64Encoder.encodeToString(data);
   }
 }

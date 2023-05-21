@@ -2,10 +2,8 @@
 import re
 import sys
 
-from OCR import *
 from baidu_api import *
-from gpt_api import *
-from textrank4zh import TextRank4Keyword, TextRank4Sentence
+from textrank4zh import TextRank4Sentence
 from transformers_api import *
 
 
@@ -20,18 +18,20 @@ def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
     try:
         baidu = Baidu_api(API_KEY=baidu_api_key, SECRET_KEY=baidu_SECRET_KEY)
         result_baidu = baidu.get_text(text)
+        # result_baidu = result_baidu[1:len(result_baidu)-1].split(',')[1].split(':')[1]
+        # result_baidu = result_baidu.replace("")
         result_baidu = re.search(r'summary\": \"(.*?)\"', result_baidu)
         result.append(result_baidu.group(1))
     except:
         result.append("百度云发生错误")
 
     # chatgpt 使用时需要开启vpn，可以试试打能不能打开chatgpt的网页, 打不开就把这一段
-    try:
-        gpt_api = Gpt_api(gpt_api_key)
-        result_gpt = gpt_api.get_text(text)
-        result.append(result_gpt)
-    except:
-        result.append("GPT发生错误")
+    # try:
+    #    gpt_api = Gpt_api(gpt_api_key)
+    #    result_gpt = gpt_api.get_text(text)
+    #    result.append(result_gpt)
+    # except:
+    #    result.append("GPT发生错误")
 
     # textrank
     try:
@@ -46,7 +46,7 @@ def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
     try:
         trans = transformers_api()
         result_trans = trans.get_text(text)
-        result.append(result_trans)
+        result.append(result_trans[0]['summary_text'])
         # result_trans = re.search(r"summary\': '(.*?)\'}", result_trans[0])
         # result.append(result_trans.group(1))
     except:

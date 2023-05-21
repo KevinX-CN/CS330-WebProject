@@ -72,7 +72,7 @@ public class Processer {
   public static String generateSummary2(String text)
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    Process process = runtime.exec("python src/main/python/summary2/Untitled2.ipynb \""+text+"\"");
+    Process process = runtime.exec("python src/main/python/summary2/Untitled2.py \""+text+"\"");
     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
     process.waitFor();
     String s=reader.readLine();
@@ -88,8 +88,9 @@ public class Processer {
 
   public static void main(String[] args)
     throws TesseractException, IOException, InterruptedException {
-    String text=OCR("46.png").replace("\n", "").replace("'","");
-    System.out.println(generateTopic(text.replace("\n", "")));
+    String text=OCR2("46.png");
+    System.out.println(text);
+    //System.out.println(generateSummary(text));
   }
 }
 

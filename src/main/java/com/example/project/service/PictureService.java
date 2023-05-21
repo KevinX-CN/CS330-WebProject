@@ -31,23 +31,29 @@ public class PictureService {
       Comparator.comparing(x -> x)).orElse(0);
   }
 
+  public List<Picture> getPicturesByPage(int page) {
+    return this.pictureRepository.findAll().stream()
+      .filter((p) -> ((p.getId() - 1) / 10) + 1 == page)
+      .toList();
+  }
+
   public Picture getPictureById(int id) {
     return this.pictureRepository.findAll().stream().filter((p) -> p.getId() == id).findFirst()
       .orElseThrow(() -> new IllegalStateException("Picture not exists"));
   }
 
   public void addPictures() {
-    List<Picture> pList=new ArrayList<>();
-    pList.add(new Picture(1, "jpg", "Mary1","hahaha1","asdfsa1"));
-    pList.add(new Picture(2, "jpg", "alex2","hahaha2","asdfsa2"));
-    pList.add(new Picture(3, "jpg", "dean3","hahaha3","asdfsa3"));
-    pList.add(new Picture(4, "jpg", "Mary4","hahaha4","asdfsa4"));
-    pList.add(new Picture(5, "jpg", "alex5","hahaha5","asdfsa5"));
-    pList.add(new Picture(6, "jpg", "dean6","hahaha6","asdfsa6"));
-    pList.add(new Picture(7, "jpg", "Mary7","hahaha7","asdfsa7"));
-    pList.add(new Picture(8, "jpg", "alex8","hahaha8","asdfsa8"));
-    pList.add(new Picture(9, "jpg", "dean9","hahaha9","asdfsa9"));
-    pList.add(new Picture(10, "jpg", "Mary10","hahaha10","asdfsa10"));
+    List<Picture> pList = new ArrayList<>();
+    pList.add(new Picture(1, "jpg", "Mary1", "hahaha1", "asdfsa1"));
+    pList.add(new Picture(2, "jpg", "alex2", "hahaha2", "asdfsa2"));
+    pList.add(new Picture(3, "jpg", "dean3", "hahaha3", "asdfsa3"));
+    pList.add(new Picture(4, "jpg", "Mary4", "hahaha4", "asdfsa4"));
+    pList.add(new Picture(5, "jpg", "alex5", "hahaha5", "asdfsa5"));
+    pList.add(new Picture(6, "jpg", "dean6", "hahaha6", "asdfsa6"));
+    pList.add(new Picture(7, "jpg", "Mary7", "hahaha7", "asdfsa7"));
+    pList.add(new Picture(8, "jpg", "alex8", "hahaha8", "asdfsa8"));
+    pList.add(new Picture(9, "jpg", "dean9", "hahaha9", "asdfsa9"));
+    pList.add(new Picture(10, "jpg", "Mary10", "hahaha10", "asdfsa10"));
     pictureRepository.saveAll(pList);
   }
 
