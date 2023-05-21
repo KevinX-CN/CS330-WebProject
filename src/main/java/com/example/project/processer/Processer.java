@@ -23,7 +23,7 @@ public class Processer {
     throws TesseractException, IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process process = runtime.exec("python src/main/python/topic/K_OCR.py \""+picturePath+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
     process.waitFor();
     String s=reader.readLine();
     reader.close();
@@ -39,7 +39,7 @@ public class Processer {
   public static String generateTopic(String text) throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process process = runtime.exec("python src/main/python/topic/Keywords.py \""+text+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
     process.waitFor();
     String s=reader.readLine();
     reader.close();
@@ -56,7 +56,7 @@ public class Processer {
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process process = runtime.exec("python src/main/python/summary1/main.py \""+text+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
     process.waitFor();
     String s=reader.readLine();
     reader.close();
@@ -73,7 +73,7 @@ public class Processer {
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process process = runtime.exec("python src/main/python/summary2/Untitled2.py \""+text+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
     process.waitFor();
     String s=reader.readLine();
     reader.close();
@@ -89,7 +89,10 @@ public class Processer {
   public static void main(String[] args)
     throws TesseractException, IOException, InterruptedException {
     String text=OCR2("46.png");
-    System.out.println(text);
+    System.out.println(text+"\n");
+    System.out.println(generateTopic(text)+"\n");
+    String summary=generateSummary(text);
+    System.out.println(summary.substring(0,summary.length()-1)+", '"+generateSummary2(text)+"']"+"\n");
     //System.out.println(generateSummary(text));
   }
 }

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Base64.Encoder;
+import javafx.util.Pair;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,8 +22,7 @@ public class Picture {
   private String type;
   private String title;
   private String text;
-  private String topic;
-  private String summary;
+  private Pair<String, String> result;
 
   public Picture() {
 
@@ -38,8 +38,7 @@ public class Picture {
     this.id = id;
     this.type = type;
     this.title = title;
-    this.topic = topic;
-    this.summary = summary;
+    result = new Pair<>(topic, summary);
   }
 
   public int getId() {
@@ -75,19 +74,19 @@ public class Picture {
   }
 
   public String getTopic() {
-    return this.topic;
+    return this.result.getKey();
   }
 
   public void setTopic(String topic) {
-    this.topic = topic;
+    this.result = new Pair<>(topic, this.result.getValue());
   }
 
   public String getSummary() {
-    return this.summary;
+    return this.result.getValue();
   }
 
   public void setSummary(String summary) {
-    this.summary = summary;
+    this.result = new Pair<>(this.result.getKey(), summary);
   }
 
   public String getFileName() {
