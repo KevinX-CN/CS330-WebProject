@@ -19,11 +19,26 @@ public class Processer {
     return tesseract.doOCR(imgDir);
   }
 
-  public static String generateTopic(String text) throws IOException, InterruptedException {
-    //获取执行进程
+  public static String OCR2(String picturePath)
+    throws TesseractException, IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    System.out.println(System.getProperty("user.dir"));
-    Process process = runtime.exec("python src/main/python/topic/Keywords.py");
+    Process process = runtime.exec("python src/main/python/topic/K_OCR.py \""+picturePath+"\"");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    process.waitFor();
+    String s=reader.readLine();
+    reader.close();
+    int exitValue = process.exitValue();
+    if (exitValue == 0) {
+      System.out.println("进程正常结束");
+    } else {
+      System.out.println("进程异常结束");
+    }
+    return s;
+  }
+
+  public static String generateTopic(String text) throws IOException, InterruptedException {
+    Runtime runtime = Runtime.getRuntime();
+    Process process = runtime.exec("python src/main/python/topic/Keywords.py \""+text+"\"");
     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
     process.waitFor();
     String s=reader.readLine();
@@ -39,25 +54,29 @@ public class Processer {
 
   public static String generateSummary(String text)
     throws IOException, InterruptedException {
-    //获取执行进程
     Runtime runtime = Runtime.getRuntime();
-    Process process = runtime.exec("python summary.py");
-
-    //读取输入流
-    InputStream inputStream = process.getInputStream();
-    //将字节流转成字符流
-    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-    //字符缓冲区
-    String s="";
-    char[] c = new char[1024];
-    int len = -1;
-    while ((len = inputStreamReader.read(c)) != -1) {
-      s = new String(c, 0, len);
-      System.out.print(s);
-    }
-    inputStream.close();
-    inputStreamReader.close();
+    Process process = runtime.exec("python src/main/python/summary1/main.py \""+text+"\"");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
     process.waitFor();
+    String s=reader.readLine();
+    reader.close();
+    int exitValue = process.exitValue();
+    if (exitValue == 0) {
+      System.out.println("进程正常结束");
+    } else {
+      System.out.println("进程异常结束");
+    }
+    return s;
+  }
+
+  public static String generateSummary2(String text)
+    throws IOException, InterruptedException {
+    Runtime runtime = Runtime.getRuntime();
+    Process process = runtime.exec("python src/main/python/summary2/Untitled2.ipynb \""+text+"\"");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    process.waitFor();
+    String s=reader.readLine();
+    reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
       System.out.println("进程正常结束");

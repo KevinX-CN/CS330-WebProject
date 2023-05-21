@@ -53,7 +53,7 @@ public class ManageController {
       os.close();
       picture.setText(Processer.OCR(picture.getFileName()));
       picture.setTopic(Processer.generateTopic(picture.getFileName()));
-      picture.setTopic(Processer.generateSummary(picture.getFileName()));
+      picture.setSummary(Processer.generateSummary(picture.getFileName()));
       this.pictureService.addPicture(picture);
       return 200;
     } else {

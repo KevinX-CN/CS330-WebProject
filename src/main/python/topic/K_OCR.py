@@ -84,5 +84,5 @@ class K_OCR(object):
 
 
 if __name__ == '__main__':
-    ocr = K_OCR('47_脑中“糖密码”的化学解析.png')
+    ocr = K_OCR(sys.argv[1])
     print(ocr.extract_text())

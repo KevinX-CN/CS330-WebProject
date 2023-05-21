@@ -1,6 +1,7 @@
-#from K_OCR import *
-#from CH_keywords import *
-#from EN_keywords import *
+from K_OCR import *
+from CH_keywords import *
+from EN_keywords import *
+import sys
 
 
 def keywords(Picture_Path):
@@ -24,7 +25,8 @@ def keywords(Picture_Path):
 
 
 if __name__ == '__main__':
+
     # print(keywords('47_脑中“糖密码”的化学解析.png'))
     # print(keywords('83.png'))
-    print(1)
+    print(keywords(sys.argv[1]))
 

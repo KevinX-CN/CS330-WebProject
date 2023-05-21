@@ -7,12 +7,12 @@ from textrank4zh import TextRank4Keyword, TextRank4Sentence
 from transformers_api import *
 
 
-def abstract(picture_path, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
+def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
     result = []
 
     # ocr
-    ocr1 = OCR(picture_path)
-    text = ocr1.extract_text()
+    # ocr1 = OCR(picture_path)
+    # text = ocr1.extract_text()
 
     # baidu
     try:
@@ -58,5 +58,5 @@ if __name__ == '__main__':
     baidu_api_key = "GLaQsNGkeXDyk40Sq5rtfqj3"
     baidu_SECRET_KEY = "dluYAELA7nQpuv1MmL76V8edqoNZypxM"
     gpt_api_key = "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"
-    result = abstract(r'data/49_群体微生物学与精准抗菌药物研发.png', baidu_api_key, baidu_SECRET_KEY, gpt_api_key)
+    result = abstract(sys.args[1], baidu_api_key, baidu_SECRET_KEY, gpt_api_key)
     print(result)
