@@ -54,11 +54,11 @@ public class PictureService {
     pList.add(new Picture(8, "jpg", "alex8", "hahaha8", "asdfsa8"));
     pList.add(new Picture(9, "jpg", "dean9", "hahaha9", "asdfsa9"));
     //pList.add(new Picture(10, "jpg", "Mary10", "hahaha10", "asdfsa10"));
-    pictureRepository.saveAll(pList);
+    this.pictureRepository.saveAll(pList);
   }
 
   public void addPicture(Picture p) {
-    pictureRepository.save(p);
+    this.pictureRepository.saveAll(List.of(p));
   }
 
   @Transactional

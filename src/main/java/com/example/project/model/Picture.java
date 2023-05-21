@@ -21,7 +21,6 @@ public class Picture {
   private int id;
   private String type;
   private String title;
-  private String text;
   private Pair<String, String> result;
 
   public Picture() {
@@ -32,6 +31,7 @@ public class Picture {
     this.id = id;
     this.type = type;
     this.title = title;
+    this.result=new Pair<>("","");
   }
 
   public Picture(int id, String type, String title, String topic, String summary) {
@@ -63,14 +63,6 @@ public class Picture {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public String getText() {
-    return this.text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
   }
 
   public String getTopic() {

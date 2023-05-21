@@ -8,12 +8,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import net.sourceforge.tess4j.TesseractException;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+@RestController
 public class ManageController {
 
   private final PictureService pictureService;
@@ -27,12 +28,13 @@ public class ManageController {
   }
 
   @PostMapping("/upload")
-  public int upFile(@RequestParam("file") MultipartFile file)
-    throws IOException, TesseractException, InterruptedException {
+  @CrossOrigin
+  public Picture uploadFile(@RequestParam("file") MultipartFile file)
+    throws IOException, TesseractException, InterruptedException, IOException, TesseractException {
     if (file != null) {
       int id = generateId();
       String type = file.getOriginalFilename()
-        .substring(file.getOriginalFilename().length() - 4,
+        .substring(file.getOriginalFilename().length() - 3,
           file.getOriginalFilename().length());
       String name = file.getOriginalFilename()
         .substring(0, file.getOriginalFilename().length() - 4);
@@ -41,8 +43,7 @@ public class ManageController {
       if (!mkdir.exists()) {
         mkdir.mkdirs();
       }
-      FileOutputStream os = new FileOutputStream(
-        mkdir.getPath() + "\\" + picture.getFileName());
+      FileOutputStream os = new FileOutputStream(picture.getFileName());
       InputStream in = file.getInputStream();
       int bit;
       while ((bit = in.read()) != -1) {
@@ -51,13 +52,13 @@ public class ManageController {
       os.flush();
       in.close();
       os.close();
-      picture.setText(Processer.OCR(picture.getFileName()));
-      picture.setTopic(Processer.generateTopic(picture.getFileName()));
-      picture.setSummary(Processer.generateSummary(picture.getFileName()));
+      String text=(Processer.OCR2(picture.getFileName()));
+      picture.setTopic(Processer.generateTopic(text));
+      picture.setSummary(Processer.generateSummary(text));
       this.pictureService.addPicture(picture);
-      return 200;
+      return picture;
     } else {
-      return 401;
+      return null;
     }
   }
 }
