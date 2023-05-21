@@ -2,6 +2,7 @@ import base64
 import io
 import json
 import re
+import sys
 import urllib
 import requests
 from PIL import Image

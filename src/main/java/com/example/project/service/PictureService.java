@@ -2,6 +2,7 @@ package com.example.project.service;
 
 import com.example.project.model.Picture;
 import com.example.project.repository.PictureRepository;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -36,10 +37,18 @@ public class PictureService {
   }
 
   public void addPictures() {
-    Picture maria = new Picture(1, "jpg", "Mary");
-    Picture alex = new Picture(2, "jpg", "alex");
-    Picture dean = new Picture(3, "jpg", "dean");
-    pictureRepository.saveAll(List.of(maria, alex, dean));
+    List<Picture> pList=new ArrayList<>();
+    pList.add(new Picture(1, "jpg", "Mary1","hahaha1","asdfsa1"));
+    pList.add(new Picture(2, "jpg", "alex2","hahaha2","asdfsa2"));
+    pList.add(new Picture(3, "jpg", "dean3","hahaha3","asdfsa3"));
+    pList.add(new Picture(4, "jpg", "Mary4","hahaha4","asdfsa4"));
+    pList.add(new Picture(5, "jpg", "alex5","hahaha5","asdfsa5"));
+    pList.add(new Picture(6, "jpg", "dean6","hahaha6","asdfsa6"));
+    pList.add(new Picture(7, "jpg", "Mary7","hahaha7","asdfsa7"));
+    pList.add(new Picture(8, "jpg", "alex8","hahaha8","asdfsa8"));
+    pList.add(new Picture(9, "jpg", "dean9","hahaha9","asdfsa9"));
+    pList.add(new Picture(10, "jpg", "Mary10","hahaha10","asdfsa10"));
+    pictureRepository.saveAll(pList);
   }
 
   public void addPicture(Picture p) {

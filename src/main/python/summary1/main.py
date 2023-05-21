@@ -1,5 +1,7 @@
 # -*- encoding:utf-8 -*-
 import re
+import sys
+
 from OCR import *
 from baidu_api import *
 from gpt_api import *
@@ -58,5 +60,5 @@ if __name__ == '__main__':
     baidu_api_key = "GLaQsNGkeXDyk40Sq5rtfqj3"
     baidu_SECRET_KEY = "dluYAELA7nQpuv1MmL76V8edqoNZypxM"
     gpt_api_key = "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"
-    result = abstract(sys.args[1], baidu_api_key, baidu_SECRET_KEY, gpt_api_key)
+    result = abstract(sys.argv[1], baidu_api_key, baidu_SECRET_KEY, gpt_api_key)
     print(result)

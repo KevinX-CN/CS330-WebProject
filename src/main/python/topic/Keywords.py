@@ -4,10 +4,7 @@ from EN_keywords import *
 import sys
 
 
-def keywords(Picture_Path):
-    ocr = K_OCR(Picture_Path)
-    TEXT = ocr.extract_text()
-
+def keywords(TEXT):
     ch = 0
     en = 0
     for c in TEXT:

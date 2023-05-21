@@ -28,6 +28,14 @@ public class Picture {
     this.title = title;
   }
 
+  public Picture(int id, String type, String title, String topic, String summary) {
+    this.id = id;
+    this.type = type;
+    this.title = title;
+    this.topic = topic;
+    this.summary = summary;
+  }
+
   public int getId() {
     return this.id;
   }
