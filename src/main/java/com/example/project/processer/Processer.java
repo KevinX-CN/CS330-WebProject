@@ -58,12 +58,12 @@ public class Processer {
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process process = runtime.exec("python src/main/python/summary1/main.py \"" + text + "\"");
-    System.out.println("python src/main/python/summary1/main.py \"" + text + "\"");
+    //System.out.println("python src/main/python/summary1/main.py \"" + text + "\"");
     BufferedReader reader = new BufferedReader(
       new InputStreamReader(process.getInputStream(), "gb2312"));
     process.waitFor();
     String s = reader.readLine();
-    System.out.println(s);
+    //System.out.println(s);
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
@@ -78,7 +78,7 @@ public class Processer {
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process process = runtime.exec("python src/main/python/summary2/Untitled2.py \"" + text + "\"");
-    System.out.println("python src/main/python/summary2/Untitled2.py \"" + text + "\"");
+    //System.out.println("python src/main/python/summary2/Untitled2.py \"" + text + "\"");
     BufferedReader reader = new BufferedReader(
       new InputStreamReader(process.getInputStream(), "gb2312"));
     process.waitFor();
@@ -96,11 +96,11 @@ public class Processer {
   public static void main(String[] args)
     throws TesseractException, IOException, InterruptedException {
     System.out.println(System.getProperty("user.dir"));
-    String text = OCR2("posters/46.png").replace("\n", " ");
-    System.out.println(text + "\n");
+    String text = OCR2("3.png").replace("\n", " ");
+    //System.out.println(text + "\n");
     System.out.println(generateTopic(text) + "\n");
     System.out.println(generateSummary(text) + "\n");
-    System.out.println(generateSummary(text));
+    System.out.println(generateSummary2(text));
   }
 }
 

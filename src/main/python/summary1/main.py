@@ -2,14 +2,12 @@
 import re
 import sys
 
-from OCR import *
 from baidu_api import *
-from gpt_api import *
-from textrank4zh import TextRank4Keyword, TextRank4Sentence
+from textrank4zh import TextRank4Sentence
 from transformers_api import *
 
 
-def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
+def abstract(text, baidu_api_key, baidu_SECRET_KEY):
     result = []
 
     # baidu
@@ -23,7 +21,7 @@ def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
     except:
         result.append("百度云发生错误")
 
-    #textrank
+    # textrank
     try:
         tr4s = TextRank4Sentence()
         tr4s.analyze(text=text, lower=True, source='all_filters')
@@ -31,7 +29,7 @@ def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
             result.append(item.sentence)
     except:
         result.append("TextRank发生错误")
-
+    '''
     # transformers
     try:
         trans = transformers_api()
@@ -39,13 +37,15 @@ def abstract(text, baidu_api_key, baidu_SECRET_KEY, gpt_api_key):
         result_trans = result_trans[0]['summary_text']
         result.append(result_trans.group(1))
     except:
-        result.append("transform发生错误")
+         result.append("transform发生错误")
+    '''
 
+    return result
 
 if __name__ == '__main__':
     # 只是拿我自己的api举例
     baidu_api_key = "GLaQsNGkeXDyk40Sq5rtfqj3"
     baidu_SECRET_KEY = "dluYAELA7nQpuv1MmL76V8edqoNZypxM"
     gpt_api_key = "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"
-    result = abstract(sys.argv[1], baidu_api_key, baidu_SECRET_KEY, gpt_api_key)
-    print(result)# -*- encoding:utf-8 -*-
+    result = abstract(sys.argv[1], baidu_api_key, baidu_SECRET_KEY)
+    print(result)  # -*- encoding:utf-8 -*-
