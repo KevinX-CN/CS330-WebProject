@@ -3,7 +3,6 @@ package com.example.project.processer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
@@ -22,10 +21,12 @@ public class Processer {
   public static String OCR2(String picturePath)
     throws TesseractException, IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    Process process = runtime.exec("python src/main/python/topic/K_OCR.py \""+picturePath+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
+    Process process = runtime.exec("python src/main/python/OCR/K_OCR.py \"" + picturePath + "\"");
+    System.out.println("python src/main/python/OCR/K_OCR.py \"" + picturePath + "\"");
+    BufferedReader reader = new BufferedReader(
+      new InputStreamReader(process.getInputStream(), "gb2312"));
     process.waitFor();
-    String s=reader.readLine();
+    String s = reader.readLine();
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
@@ -38,10 +39,11 @@ public class Processer {
 
   public static String generateTopic(String text) throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    Process process = runtime.exec("python src/main/python/topic/Keywords.py \""+text+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
+    Process process = runtime.exec("python src/main/python/topic/Keywords.py \"" + text + "\"");
+    BufferedReader reader = new BufferedReader(
+      new InputStreamReader(process.getInputStream(), "gb2312"));
     process.waitFor();
-    String s=reader.readLine();
+    String s = reader.readLine();
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
@@ -55,16 +57,19 @@ public class Processer {
   public static String generateSummary(String text)
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    Process process = runtime.exec("python src/main/python/summary1/main.py \""+text+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
+    Process process = runtime.exec("python src/main/python/summary1/main.py \"" + text + "\"");
+    System.out.println("python src/main/python/summary1/main.py \"" + text + "\"");
+    BufferedReader reader = new BufferedReader(
+      new InputStreamReader(process.getInputStream(), "gb2312"));
     process.waitFor();
-    String s=reader.readLine();
+    String s = reader.readLine();
+    System.out.println(s);
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
       System.out.println("进程正常结束");
     } else {
-      System.out.println("进程异常结束");
+      System.out.println(exitValue);
     }
     return s;
   }
@@ -72,10 +77,12 @@ public class Processer {
   public static String generateSummary2(String text)
     throws IOException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    Process process = runtime.exec("python src/main/python/summary2/Untitled2.py \""+text+"\"");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"gb2312"));
+    Process process = runtime.exec("python src/main/python/summary2/Untitled2.py \"" + text + "\"");
+    System.out.println("python src/main/python/summary2/Untitled2.py \"" + text + "\"");
+    BufferedReader reader = new BufferedReader(
+      new InputStreamReader(process.getInputStream(), "gb2312"));
     process.waitFor();
-    String s=reader.readLine();
+    String s = reader.readLine();
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
@@ -88,12 +95,12 @@ public class Processer {
 
   public static void main(String[] args)
     throws TesseractException, IOException, InterruptedException {
-    String text=OCR2("46.png");
-    System.out.println(text+"\n");
-    System.out.println(generateTopic(text)+"\n");
-    String summary=generateSummary(text);
-    System.out.println(summary.substring(0,summary.length()-1)+", '"+generateSummary2(text)+"']"+"\n");
-    //System.out.println(generateSummary(text));
+    System.out.println(System.getProperty("user.dir"));
+    String text = OCR2("posters/46.png").replace("\n", " ");
+    System.out.println(text + "\n");
+    System.out.println(generateTopic(text) + "\n");
+    System.out.println(generateSummary(text) + "\n");
+    System.out.println(generateSummary(text));
   }
 }
 

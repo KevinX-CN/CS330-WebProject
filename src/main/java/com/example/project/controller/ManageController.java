@@ -52,9 +52,11 @@ public class ManageController {
       os.flush();
       in.close();
       os.close();
-      String text=(Processer.OCR2(picture.getFileName()));
+      System.out.println(picture.getFileName());
+      String text=(Processer.OCR(picture.getFileName()));
       picture.setTopic(Processer.generateTopic(text));
-      picture.setSummary(Processer.generateSummary(text));
+      String summary=Processer.generateSummary(text);
+      picture.setSummary(summary.substring(0,summary.length()-1)+", '"+Processer.generateSummary2(text)+"']"+"\n");
       this.pictureService.addPicture(picture);
       return picture;
     } else {
