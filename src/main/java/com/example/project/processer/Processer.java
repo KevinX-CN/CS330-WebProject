@@ -96,7 +96,7 @@ public class Processer {
   public static void main(String[] args)
     throws TesseractException, IOException, InterruptedException {
     System.out.println(System.getProperty("user.dir"));
-    String text = OCR2("3.png").replace("\n", " ");
+    String text = OCR2("8.png").replace("\n", " ");
     //System.out.println(text + "\n");
     System.out.println(generateTopic(text) + "\n");
     System.out.println(generateSummary(text) + "\n");

@@ -21,7 +21,7 @@ public class ViewController {
   @GetMapping(value = "/view")
   @CrossOrigin
   public List<Picture> getView(@RequestParam(value = "page") Integer page) {
-    System.out.println("Here");
+    System.out.println("Viewing");
     return pictureService.getPicturesByPage(page);
   }
 }

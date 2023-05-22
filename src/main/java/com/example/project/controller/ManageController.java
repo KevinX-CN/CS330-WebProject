@@ -31,6 +31,7 @@ public class ManageController {
   @CrossOrigin
   public Picture uploadFile(@RequestParam("file") MultipartFile file)
     throws IOException, TesseractException, InterruptedException, IOException, TesseractException {
+    System.out.println("Uploading");
     if (file != null) {
       int id = generateId();
       String type = file.getOriginalFilename()
