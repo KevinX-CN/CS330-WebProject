@@ -47,7 +47,7 @@ public class Processer {
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
-      System.out.println("进程正常结束");
+      System.out.println("Topico进程正常结束");
     } else {
       System.out.println("进程异常结束");
     }
@@ -67,7 +67,7 @@ public class Processer {
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
-      System.out.println("进程正常结束");
+      System.out.println("Summary1进程正常结束");
     } else {
       System.out.println(exitValue);
     }
@@ -86,7 +86,7 @@ public class Processer {
     reader.close();
     int exitValue = process.exitValue();
     if (exitValue == 0) {
-      System.out.println("进程正常结束");
+      System.out.println("Summary2进程正常结束");
     } else {
       System.out.println("进程异常结束");
     }

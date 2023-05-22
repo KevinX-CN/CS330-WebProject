@@ -29,7 +29,7 @@ public class ManageController {
 
   @PostMapping("/upload")
   @CrossOrigin
-  public Picture uploadFile(@RequestParam("file") MultipartFile file)
+  public Picture uploadFile(@RequestParam("poster") MultipartFile file)
     throws IOException, TesseractException, InterruptedException, IOException, TesseractException {
     System.out.println("Uploading");
     if (file != null) {

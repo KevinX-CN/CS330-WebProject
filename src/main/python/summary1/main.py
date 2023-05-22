@@ -29,16 +29,16 @@ def abstract(text, baidu_api_key, baidu_SECRET_KEY):
             result.append(item.sentence)
     except:
         result.append("TextRank发生错误")
-    '''
+
     # transformers
     try:
         trans = transformers_api()
         result_trans = trans.get_text(text)
         result_trans = result_trans[0]['summary_text']
-        result.append(result_trans.group(1))
+        result.append(result_trans)
     except:
-         result.append("transform发生错误")
-    '''
+         print.append("transform发生错误")
+
 
     return result
 
