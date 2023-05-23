@@ -34,9 +34,7 @@ public class ManageController {
     System.out.println("Uploading");
     if (file != null) {
       int id = generateId();
-      String type = file.getOriginalFilename()
-        .substring(file.getOriginalFilename().length() - 3,
-          file.getOriginalFilename().length());
+      String type = "png";
       String name = file.getOriginalFilename()
         .substring(0, file.getOriginalFilename().length() - 4);
       Picture picture = new Picture(id, type, name);
@@ -54,10 +52,14 @@ public class ManageController {
       in.close();
       os.close();
       System.out.println(picture.getFileName());
-      String text=(Processer.OCR(picture.getFileName()));
+      String text=(Processer.OCR2(picture.getFileName()));
       picture.setTopic(Processer.generateTopic(text));
       String summary=Processer.generateSummary(text);
+      if(summary.length()>0)
       picture.setSummary(summary.substring(0,summary.length()-1)+", '"+Processer.generateSummary2(text)+"']");
+      else {
+        picture.setSummary("['"+Processer.generateSummary2(text)+"']");
+      }
       this.pictureService.addPicture(picture);
       return picture;
     } else {

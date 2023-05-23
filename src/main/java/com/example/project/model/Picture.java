@@ -66,7 +66,7 @@ public class Picture {
   }
 
   public String getTopic() {
-    return this.result.getKey();
+    return this.result.getKey().replace("', '","|").replace("['","").replace("']","");
   }
 
   public void setTopic(String topic) {
@@ -74,7 +74,7 @@ public class Picture {
   }
 
   public String getSummary() {
-    return this.result.getValue();
+    return this.result.getValue().replace("', '","--|--").replace("['","").replace("']","");
   }
 
   public void setSummary(String summary) {
